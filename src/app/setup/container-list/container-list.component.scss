@@ -1,0 +1,60 @@
+@import "../../../theme/helpers.scss";
+//Header
+.detailsHeader{
+    float: left;
+}
+.button{
+    background: gray;
+    color: white;
+}
+//table css
+.align{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fafbff;
+    justify-content: space-around;
+    div {
+        background-color: #fff;
+        width: 400px;
+        margin: 10px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 15px;
+        position: relative;
+        opacity: 0.6;
+        -webkit-transition: opacity .5s ease-in;
+        transition: opacity .5s ease-in ;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        small {
+            position:absolute; 
+            right: 1px;  
+            top: 1px
+        }
+    }
+}
+  
+  .listItem{
+    list-style: none;
+  }
+  .userStatus{
+      float: right;
+  }
+  
+// pointer
+.pointer {
+    cursor: pointer;
+}
+.right{
+    float: right;
+}
+

@@ -1,0 +1,57 @@
+<div class="container">
+  <main id="content" class="widget-login-container" role="main">
+    <div class="row justify-content-center">
+      <div class="col-xl-5 col-md-6 col-10">
+        <h5 class="widget-login-logo animated fadeInUp">
+          <i class="fa fa-circle text-gray"></i>
+          {{'APP_NAME' | translate}}
+          <i class="fa fa-circle text-warning"></i>
+        </h5>
+        <section class="widget widget-login animated fadeInUp">
+          <header>
+            <h3>Login to your Odyssey App</h3>
+          </header>
+          <div class="widget-body">
+            <form class="login-form mt-lg">
+              <div class="form-group">
+                <input type="text" [(ngModel)] = "username" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Username">
+              </div>
+              <div class="form-group">
+                <input class="form-control" [(ngModel)] = "password" type="password" placeholder="Password" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="clearfix">
+                <div class="btn-toolbar float-right m-t-1">
+                  <button class="btn btn-inverse btn-sm" [disabled]="!username || !password || isLoading" href="javascript:void(0)" (click)="login()">
+                      <span *ngIf="!isLoading; else loadingTemplate">
+                          Login
+                      </span>
+                      <ng-template #loadingTemplate>
+                          <i class="fa fa-spinfa fa-spinner fa-spin"></i> logging ...
+                      </ng-template>
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-md-push-6">
+                    <div class="clearfix">
+                        <div class="abc-checkbox widget-login-info text-left">
+                            <input type="checkbox" [(ngModel)] = "remeber" id="checkbox1" value="1" [ngModelOptions]="{standalone: true}">
+                            <label for="checkbox1">Keep me signed in </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-md-pull-6">
+                    <a class="mr-n-lg" href="#" routerLink="/password/forget">Trouble with account?</a>
+                </div>
+            </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer">
+    2017 &copy; Sing. Admin Dashboard Template.
+  </footer>
+</div>

@@ -1,0 +1,89 @@
+<div>
+  <section class="widget" widget>
+    <header class="align flex flex-horizontal-center hight-300px" >
+      <div class="searchBar">
+          <form class="navbar-form d-none d-md-block mb-3" role="search">
+              <div class="form-group">
+                <div class="input-group input-group-no-border">
+                  <input class="form-control" type="text" placeholder="Search Container type list">
+                  <span class="input-group-append">
+                    <span class="input-group-text">
+                      <i class="fa fa-search"></i>
+                    </span>
+                  </span>
+                </div>
+              </div>
+          </form>
+      </div>  
+      <div class="widget-controls">
+          <button class="btn btn-secondary" (click)="OpenContainerTypeCreate(content)">Create Type</button>
+      </div>
+    </header>
+    <div class="widget-body">
+      <div class="col-md-12 text-right">
+          <a href="#" routerLink="/containertype/all"  data-toggle="tooltip" title="refresh"><i class="fa fa-refresh"></i></a>
+      </div>
+      <div class="flex-container">
+          <div class="pointer" *ngFor="let container of containers" routerLink="/container/5/typeDetails">
+            <h3>{{container.name}}</h3>
+            <p>{{container.info}}</p>
+            <small class="badge" [ngClass]="{
+              'badge-success':container.isActive === true,
+              'badge-danger':container.isActive === false
+            }">{{container.isActive ? "Active" : "Inactive"}}</small>
+          </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+ <!-- Template for Role Create -->
+ 
+ <ng-template #content let-modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h3 class="modal-title" id="create-container-type">Create Container Type</h3>
+    <div class="widget-controls">
+      <a href="#" routerLink="/containertype/all" (click)="d('')" data-toggle="tooltip" title="close"><i class="glyphicon glyphicon-remove"></i></a>
+    </div>
+  </div>
+  <div class="modal-body" id="create-container-type">
+      <div class="widget-body">
+          <form class="form-horizontal" role="form">
+            <fieldset>
+              <div class="form-group row">
+                <label class="col-md-4  col-form-label text-md-right" for="typeName">Type Name</label>
+                <div class="col-md-7 ">
+                  <div class="input-group">
+                    <span class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-user"></i>
+                      </span>
+                    </span>
+                    <input [(ngModel)] = "containerTypeContext.name" id="typeName" class="form-control" size="16" type="text" [ngModelOptions]="{standalone: true}" placeholder="Container type name">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-4  col-form-label text-md-right" for="info">Info</label>
+                <div class="col-md-7 ">
+                  <div class="input-group">
+                    <span class="input-group-prepend">
+                      <span class="input-group-text">
+                          <i class="fas fa-calendar-check"></i>
+                      </span>
+                    </span>
+                    <input [(ngModel)] = "containerTypeContext.info" id="info" class="form-control" size="16" type="text" [ngModelOptions]="{standalone: true}" placeholder="info">
+                  </div>
+                </div>
+          </div>
+            </fieldset>
+          </form>
+        </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn button" routerLink="/containertype/all" (click)="d('')">Cancel</button>  
+    <button type="submit" [disabled]="!containerTypeContext.containerTypeValidate()" class="btn button" (click)="createContainerType()" (click)="d('')">Create</button>
+  </div>
+</ng-template>
+
+<router-outlet></router-outlet>

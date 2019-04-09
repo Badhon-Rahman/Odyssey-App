@@ -1,0 +1,40 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">YOU ARE HERE</li>
+  <li class="active breadcrumb-item">Setup > Structure</li>
+</ol>
+<h1 class="page-title">Build <span class="fw-semi-bold">Compay Structure</span></h1>
+<section class="widget" widget>
+  <header class="align flex flex-horizontal-center hight-300px" >
+    <h6>Drag and drop Structure builder</h6>
+    <div class="widget-controls">
+        <a href="#" routerLink="/containertype/setup" data-toggle="tooltip" title="refresh"><i class="fa fa-refresh"></i></a>
+    </div>
+  </header>
+  <div class="flex-container">
+    <div class="row">
+      <div class="col-sm-4">
+        <ul class="list-group">
+          <li *ngFor="let item of dragList"  class="list-group-item"><div class="box" mwlDraggable  dropData="{{item.id}}">{{item.name}}<br>{{item.info}}</div></li>
+        </ul>
+      </div>
+      <div class="col-sm-8">
+            <div class="dropbox"
+              mwlDroppable
+              (drop)="onDrop($event)">
+              
+              <span class="border border-secondary" [hidden]="droppedData">Drag and Drop a field here and append it to the form</span>
+              <div class="border border-light" [hidden]="!droppedData">Drag and Drop Container Type here and set the level</div>
+            </div>
+          <div>
+            <ul class="list-group list-group-flush">
+              <li *ngFor="let item of droppedData" class="list-group-item">
+                <div class="widget-controls" class="box"><a class="delete" (click)="deleteId=item.id" (click)="deleteDropData()"> <i  class="fas fa-trash-alt"></i></a>    
+                    {{item.name}}<br>{{item.info}}
+                </div>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>

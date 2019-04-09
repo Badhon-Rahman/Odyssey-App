@@ -1,0 +1,74 @@
+<div class="js-sidebar-content">
+  <header class="logo d-none d-md-block">
+    <h5 class="widget-login-logo animated fadeInUp">
+      <i class="fa fa-circle text-gray"></i>
+      {{'APP_NAME' | translate}}
+      <i class="fa fa-circle text-warning"></i>
+    </h5>
+  </header>
+  <div class="sidebar-status d-md-none dropdown" dropdown [autoClose]="false" (isOpenChange)="toggleSidebarOverflow($event)" placement="bottom left">
+    <a [routerLink]="" class="dropdown-toggle" dropdownToggle>
+              <span class="thumb-sm avatar float-right">
+        <img class="rounded-circle" src="assets/img/people/a5.jpg" alt="...">
+              </span>
+      <!-- .circle is a pretty cool way to add a bit of beauty to raw data.
+           should be used with bg-* and text-* classes for colors -->
+              <span class="circle bg-warning fw-bold text-gray-dark">
+                  13
+              </span>
+      &nbsp;
+      Philip <strong>Smith</strong>
+      <b class="caret"></b>
+    </a>
+    <app-notifications *dropdownMenu class="dropdown-menu dropdown-menu-left animated animated-fast fadeInUp"></app-notifications>
+  </div>
+  <!-- main notification links are placed inside of .sidebar-nav -->
+  <ul class="sidebar-nav">
+    <li>
+      <a routerLink="/home">
+      <span class="icon">
+          <i class="fa fa-child"></i>
+      </span>
+        Dashboard
+      </a>
+    </li>
+    <li>
+      <a class="collapsed" data-target="#sidebar-users" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fi flaticon-diamond"></i>
+        </span>
+        Users
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-users" class="collapse">
+        <li>
+          <a routerLink="/users/all">All users</a>
+        </li>
+        <li>
+          <a routerLink="/users/roles">User Roles</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a class="collapsed" data-target="#sidebar-setup" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fi flaticon-diamond"></i>
+        </span>
+        Setup
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-setup" class="collapse">
+        <li>
+          <a routerLink="/containertype/all">Types</a>
+        </li>
+        <li>
+          <a routerLink="/containertype/setup">Structure</a>
+        </li>
+        <li>
+          <a routerLink="/container/all">Containers</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <!-- A place for sidebar notifications & alerts -->
+</div>

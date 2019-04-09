@@ -1,0 +1,135 @@
+<div>
+  <section class="widget" widget>
+    <header class="align flex flex-horizontal-center">
+      <div>
+          <form class="navbar-form d-none d-md-block mr-auto" role="search">
+              <div class="form-group">
+                <div class="input-group input-group-no-border">
+                  <input class="form-control" type="text" placeholder="Search user list">
+                  <span class="input-group-append">
+                    <span class="input-group-text">
+                      <i class="fa fa-search"></i>
+                    </span>
+                  </span>
+                </div>
+              </div>
+          </form>
+      </div>  
+      <div class="widget-controls">
+          <button class="btn button" (click)="open(content)">Create New User</button>
+      </div>
+    </header>
+    <div class="widget-body">
+      <div class="col-md-12 text-right">
+          <a href="#" routerLink="/users/all" data-toggle="tooltip" title="refresh"><i class="fa fa-refresh"></i></a>  
+      </div> 
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+          <th>Picture</th>
+          <th>Name</th>
+          <th class="d-none d-md-table-cell">Info</th>
+          <th class="d-none d-md-table-cell">Role</th>
+          <th class="d-none d-md-table-cell">Status</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer" *ngFor="let user of users" routerLink="/user/{{user.id}}/details" (click)="sendUserId(user.id)">
+          <td class="d-none d-md-table-cell">
+              <img class="img-circle" src="assets/img/people/a5.jpg" alt="..." height="50">
+          </td>
+          <td>
+              <h6 class="m-0" >{{user.username}}</h6>
+          </td>
+          <td class="d-none d-md-table-cell">
+              <p class="m-0">
+                <small>
+                  <span class="fw-semi-bold">Email:</span>
+                  <span class="text-semi-muted">&nbsp; {{user.email}}</span>
+                </small>
+              </p>
+              <p>
+                <small>
+                  <span class="fw-semi-bold">Phone:</span>
+                  <span class="text-semi-muted">&nbsp; +375 29 555-55-55</span>
+                </small>
+              </p>
+            </td>
+          <td class="d-none d-md-table-cell">
+            <h6 *ngFor="let role of user.roles" class="m-0">{{role.name}}</h6>
+          </td>
+          <td class="d-none d-md-table-cell userStatus">
+              <small class="badge" [ngClass]="{
+                'badge-success':user.status === true,
+                'badge-danger':user.status === false
+              }">{{user.status ? 'Active': 'Inactive'}}</small>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+  </section>
+</div>
+<ng-template #content let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h3 class="modal-title" id="create-new-user">Create New User</h3>
+      <div class="widget-controls">
+        <a href="#" routerLink="/users/all" (click)="d('')" data-toggle="tooltip" title="close"><i class="glyphicon glyphicon-remove"></i></a>
+      </div>
+    </div>
+    <div class="modal-body" id="create-new-user">
+        <div class="widget-body">
+            <form class="form-horizontal" role="form">
+              <fieldset>
+                <div class="form-group row">
+                  <label class="col-md-4  col-form-label text-md-right" for="userName">Name</label>
+                  <div class="col-md-7 ">
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fa fa-user"></i>
+                        </span>
+                      </span>
+                      <input [(ngModel)] = "userContext.username" id="userName" class="form-control" size="16" type="text" [ngModelOptions]="{standalone: true}" placeholder="give your name">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                      <label class="col-md-4  col-form-label text-md-right" for="email">Email</label>
+                      <div class="col-md-7 ">
+                        <div class="input-group">
+                          <span class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                          </span>
+                          <input [(ngModel)] = "userContext.email" id="prepended-input" id="email" class="form-control" size="16" type="text" [ngModelOptions]="{standalone: true}"  placeholder="email">
+                        </div>
+                      </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-4  col-form-label text-md-right" for="role">Roles</label>
+                  <div class="col-md-7 ">                      
+                        <ng-select
+                        [items]="roles"
+                        [multiple]="true"
+                        [hideSelected]="true"
+                        bindLabel="name"
+                        placeholder="Select people"
+                        [(ngModel)]="userContext.roles"
+                        [ngModelOptions]="{standalone: true}">
+                      </ng-select>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn button" routerLink="/users/all" (click)="d('cancel')">Cancel</button>  
+      <button type="button" [disabled]="!userContext.userValidate()" class="btn button" (click)="createUser()" (click)="d('')">Create</button>
+    </div>
+  </ng-template>
+  <router-outlet></router-outlet>
+  

@@ -1,0 +1,208 @@
+<div class="row">
+<div class="col-lg-6">
+  <section class="widget modal-title" widget>
+    <header class="align flex flex-horizontal-center">
+      <div>
+          <h2>Role</h2>
+      </div>  
+      <div class="widget-controls">
+          <button class="btn button" (click)="openCreateRole(roleContent)">Create Role</button>
+      </div>
+    </header>
+    <div class="widget-body">
+        <div class="col-md-12 text-right"> 
+          <a href="#" routerLink="/users/roles" data-toggle="tooltip" title="refresh"><i class="fa fa-refresh"></i></a>
+        </div> 
+      </div>
+    <table class="table">
+        <thead>
+        <tr>
+          <th>Role Name</th>
+          <th>Info</th>
+          <th>Access Group</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer" *ngFor="let role of roles">
+          <td>
+              <h6 class="m-0">{{role.name}}</h6>
+          </td>
+          <td>
+            {{role.info ? role.info : 'None'}}
+          </td>
+          <td>
+            <span class="m-0" *ngFor="let accessGroup of role.accessGroups">{{accessGroup.name}} <br></span>
+          </td>
+        </tr>  
+        </tbody>
+      </table>
+  </section>
+</div>
+<div class="col-lg-6">
+    <section class="widget modal-title" widget>
+      <header class="align flex flex-horizontal-center">
+        <div>
+            <h2>Access Group</h2>
+        </div>  
+        <div class="widget-controls">
+            <button class="btn button" (click)="openAccessGroup(accessGroupContent)">Create Access Group</button>
+        </div>
+      </header>
+      <div class="widget-body">
+          <div class="col-md-12 text-right">
+              <a href="#" routerLink="/users/roles" data-toggle="tooltip" title="refresh"><i class="fa fa-refresh"></i></a>
+          </div> 
+        </div>
+      <table class="table">
+          <thead>
+          <tr>
+            <th>Access Group Name</th>
+            <th>Info</th>
+            <th>Permission</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="pointer" *ngFor="let accessGroup of accessGroups">
+            <td>
+                <h6 class="m-0">{{accessGroup.name}}</h6>
+            </td>
+            <td>
+              <h6 class="m-0">{{accessGroup.info ? accessGroup.info : 'None'}}</h6>
+          </td>
+          <td>
+            <span class="m-0" *ngFor="let accessLevel of accessGroup.accessLevels">{{accessLevel.name}} <br></span>
+          
+          </td>
+          </tr>  
+          </tbody>
+        </table>
+    </section>
+  </div>
+</div>
+
+
+<!-- Template for Role Create -->
+<ng-template #roleContent let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h3 class="modal-title" id="create-role">Create Role</h3>
+      <div class="widget-controls">
+        <a href="#" routerLink="/users/roles" (click)="d('')" data-toggle="tooltip" title="close"><i class="glyphicon glyphicon-remove"></i></a>
+      </div>
+    </div>
+    <div class="modal-body" id="create-role">
+        <div class="widget-body">
+            <form class="form-horizontal" role="form">
+              <fieldset>
+                <div class="form-group row">
+                  <label class="col-md-4  col-form-label text-md-right" for="roleName">Role Name</label>
+                  <div class="col-md-7 ">
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fa fa-user"></i>
+                        </span>
+                      </span>
+                      <input [(ngModel)] = "userRoleContext.name" class="form-control" id="roleName" size="16" type="text" placeholder="roleName" [ngModelOptions]="{standalone: true}">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4  col-form-label text-md-right" for="info">Info <span class="text-muted">(optional)</span></label>
+                    <div class="col-md-7 ">
+                      <div class="input-group">
+                        <span class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fa fa-user"></i>
+                          </span>
+                        </span>
+                        <input [(ngModel)] = "userRoleContext.info" id="info" class="form-control" size="16" type="text" placeholder="info" [ngModelOptions]="{standalone: true}">
+                      </div>
+                    </div>
+                  </div>
+                <div class="form-group row">
+                  <label class="col-md-4  col-form-label text-md-right" for="accessGroup">Access Group</label>
+                  <div class="col-md-7 ">
+                        <ng-select
+                          [items]="accessGroups"
+                          [multiple]="true"
+                          [hideSelected]="true"
+                          bindLabel="name"
+                          placeholder="Select people"
+                          [(ngModel)]="userRoleContext.accessGroups"
+                          [ngModelOptions]="{standalone: true}">
+                        </ng-select>
+                  </div>
+                </div>
+              </fieldset>
+           </form>
+          </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn button" routerLink="/users/roles" (click)="d('cancel')">Cancel</button>  
+      <button type="submit" class="btn button" [disabled] = "!userRoleContext.validate()" (click)="createRole()" (click)="d('')">Create</button>
+    </div>
+  </ng-template>
+
+  <!-- Template for Access Group Create -->
+  <ng-template #accessGroupContent let-modal let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h3 class="modal-title" id="create-access-group">Create Access Group</h3>
+        <div class="widget-controls">
+          <a href="#" routerLink="/users/roles" (click)="d('')" data-toggle="tooltip" title="close"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+      </div>
+      <div class="modal-body" id="create-access-group">
+          <div class="widget-body">
+              <form class="form-horizontal" role="form">
+                <fieldset>
+                  <div class="form-group row">
+                    <label class="col-md-4  col-form-label text-md-right" for="accessGroup">Access Name</label>
+                    <div class="col-md-7 ">
+                      <div class="input-group">
+                        <span class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fa fa-user"></i>
+                          </span>
+                        </span>
+                        <input [(ngModel)] = "userAccessGroupContext.name" id="accessGroup" class="form-control" size="16" type="text" placeholder="access group name" [ngModelOptions]="{standalone: true}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-4  col-form-label text-md-right" for="info">Info <span class="text-muted">(optional)</span></label>
+                    <div class="col-md-7 ">
+                      <div class="input-group">
+                        <span class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fa fa-user"></i>
+                          </span>
+                        </span>
+                        <input [(ngModel)] = "userAccessGroupContext.info" class="form-control" id="info" size="16" type="text" placeholder="info" [ngModelOptions]="{standalone: true}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-4  col-form-label text-md-right" for="permission">Permission</label>
+                    <div class="col-md-7 ">
+                      <ng-select
+                        [items]="allAccessLevel"
+                        [multiple]="true"
+                        [hideSelected]="true"
+                        bindLabel="name"
+                        placeholder="Select people"
+                        [(ngModel)]="userAccessGroupContext.accessLevels"
+                        [ngModelOptions]="{standalone: true}">
+                      </ng-select>
+                    </div>
+              </div>
+                </fieldset>
+              </form>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn button" routerLink="/users/roles" (click)="d('cancel')">Cancel</button>  
+        <button type="submit" [disabled]="!userAccessGroupContext.validateAccessGroup()" class="btn button" (click)="createAccessGroup()" (click)="d('')">Create</button>
+      </div>
+    </ng-template>
+ 
+  <router-outlet></router-outlet>

@@ -1,0 +1,99 @@
+<div>
+  <section class="widget" widget>
+    <header class="align flex flex-horizontal-center hight-200px" >
+      <div>
+          <form class="navbar-form d-none d-md-block mb-3" role="search">
+              <div class="form-group">
+                <div class="input-group input-group-no-border">
+                  <input class="form-control" type="text" placeholder="Search container list">
+                  <span class="input-group-append">
+                    <span class="input-group-text">
+                      <i class="fa fa-search"></i>
+                    </span>
+                  </span>
+                </div>
+              </div>
+          </form>
+      </div>  
+      <div class="widget-controls">
+          <button class="btn button" (click)="OpenContainerCreate(content)">Create Container</button>
+      </div>
+    </header>
+    <div class="widget-body">
+      <div class="col-md-12 text-right">
+          <a href="#" routerLink="/container/all" data-toggle="tooltip" title="refresh"><i class="fa fa-refresh"></i></a>
+      </div>
+      <div class="flex-container">
+          <div class="pointer" *ngFor="let container of containers" routerLink="/container/10/details">
+            <h3>{{container.name}}</h3>
+            <p>{{container.info}}</p>
+          </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+ <!-- Template for Role Create -->
+ 
+<ng-template #content let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h3 class="modal-title" id="create-container">Create Container</h3>
+      <div class="widget-controls">
+        <a href="#" routerLink="/container/all" (click)="d('')" data-toggle="tooltip" title="close"><i class="glyphicon glyphicon-remove"></i></a>
+      </div>
+    </div>
+    <div class="modal-body" id="create-container">
+        <div class="widget-body">
+            <form class="form-horizontal" role="form">
+              <fieldset>
+                <div class="form-group row">
+                  <label class="col-md-4  col-form-label text-md-right" for="containerName">Container Name</label>
+                  <div class="col-md-7 ">
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fa fa-user"></i>
+                        </span>
+                      </span>
+                      <input [(ngModel)] = "containerContext.name" id="containerName" class="form-control" size="16" type="text" [ngModelOptions]="{standalone: true}" placeholder="Container name">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-4  col-form-label text-md-right" for="info">Info</label>
+                  <div class="col-md-7 ">
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-calendar-check"></i>
+                        </span>
+                      </span>
+                      <input [(ngModel)] = "containerContext.info"  id="info" class="form-control" size="16" type="text" [ngModelOptions]="{standalone: true}" placeholder="info">
+                    </div>
+                  </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4  col-form-label text-md-right" for="containerType">Container Types</label>
+              <div class="col-md-7 ">
+                    <ng-select
+                        [items]="containerTypeId"
+                        [multiple]="false"
+                        [hideSelected]="true"
+                        bindLabel="name"
+                        placeholder="Select people"
+                        [(ngModel)]="containerContext.containerTypeId"
+                        [ngModelOptions]="{standalone: true}">
+                    </ng-select>
+              </div>
+            </div>
+              </fieldset>
+            </form>
+          </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn button" routerLink="/container/all" (click)="d('cancel')">Cancel</button>  
+      <button type="submit" [disabled]="!containerContext.containerValidate()" class="btn button" (click)="createContainer()" (click)="d('')">Create</button>
+    </div>
+  </ng-template>
+
+<router-outlet></router-outlet>

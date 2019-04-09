@@ -1,0 +1,65 @@
+@import "../../../theme/helpers.scss";
+//Header
+.detailsHeader{
+    float: left;
+}
+//table css
+.button{
+    color: black;
+}
+.align{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.flex {
+    display: flex;
+}
+
+.flex-horizontal-center {
+    justify-content: center;
+}
+.flex-vertical-center {
+    align-items: center;
+}
+.right{
+    float: right;
+}
+.pointer {cursor: pointer;}
+.pointer:hover {
+    color:blue;
+}
+
+//flex css
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fafbff;
+  }
+  
+  .flex-container {
+    div {
+        background-color: #fff;
+        width: 400px;
+        margin: 10px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 15px;
+        position: relative;
+
+        small {
+            position:absolute; 
+            right: 1px;  
+            top: 1px
+        }
+    }
+    
+  }
+  .listItem{
+    list-style: none;
+  }
+  .userStatus{
+      float: right;
+  }
+  //roleMultiSelect
+  

@@ -1,0 +1,43 @@
+.button{
+    background: gray;
+    color: white;
+}
+.align{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.flex {
+    display: flex;
+}
+
+.flex-horizontal-center {
+    justify-content: center;
+}
+.flex-vertical-center {
+    align-items: center;
+}
+.right{
+    float: right;
+}
+.pointer {cursor: pointer;}
+.pointer:hover {
+    color:black;
+}
+
+//user status
+
+.userStatus {
+    div {
+        text-align: center;
+        position: relative;
+
+        small {
+            position:absolute; 
+            right: 1px;  
+            top: 1px
+        }
+    }
+}
+
+   
